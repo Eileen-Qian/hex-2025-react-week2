@@ -41,10 +41,33 @@ function App() {
     }
   };
 
+  const checkLogin = async () => {
+    try {
+      // 從 Cookie 取得 Token
+      // const token = document.cookie
+      //   .split("; ")
+      //   .find((row) => row.startsWith("hexW2Token="))
+      //   ?.split("=")[1];
+      //   axios.defaults.headers.common["Authorization"] = token;
+      const res = await axios.post(`${API_BASE}/api/user/check`);
+      console.log(res.data);
+    } catch (error) {
+      console.error(error.response.data.message);
+    }
+  };
+
   return (
     <>
       {isAuth ? (
-        <div>已登入</div>
+        <div className="container">
+          <button
+            className="btn btn-danger mb-5"
+            type="button"
+            onClick={() => checkLogin()}
+          >
+            確認是否登入
+          </button>
+        </div>
       ) : (
         <div className="container login">
           <div className="row justify-content-center">
